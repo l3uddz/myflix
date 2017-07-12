@@ -72,6 +72,43 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myflix.wsgi.application'
 
+# Logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'formatters': {
+        'verbose': {
+
+        },
+        'simple': {
+            'format': '%(levelname)7s - %(module)20s - %(process)7d :: %(message)s'
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+        },
+        'myflix': {
+            'handlers': ['console'],
+            'level': 'DEBUG'
+        }
+    },
+}
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 

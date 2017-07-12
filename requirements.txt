@@ -4,3 +4,4 @@ django_celery_beat==1.0.1
 django-celery-results=1.0.1
 py-moneyed==0.7.0
 django-money==0.11.4
+requests==2.18.1
