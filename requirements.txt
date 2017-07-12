@@ -2,3 +2,5 @@ Django==1.11.3
 celery==git+https://github.com/celery/celery.git#egg=celery
 django_celery_beat==1.0.1
 django-celery-results=1.0.1
+py-moneyed==0.7.0
+django-money==0.11.4

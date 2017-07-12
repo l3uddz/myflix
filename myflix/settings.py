@@ -35,9 +35,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'myflix.app',
     'django_celery_results',
-    'django_celery_beat'
+    'django_celery_beat',
+    'djmoney',
+    'myflix.app'
 ]
 
 MIDDLEWARE = [
@@ -116,6 +117,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# djmoney
+CURRENCIES = ('USD', 'EUR', 'GBP')
 
 # Celery
 CELERY_BROKER_URL = "amqp://guest:guest@localhost"
