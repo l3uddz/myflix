@@ -25,11 +25,11 @@ def plex_check_server_max_streams(server=None):
     # retrieve active stream sessions
     plex_server = Plex(server_object.name, server_object.url, server_object.token)
     streams = plex_server.get_streams()
-    if not streams:
+    if streams is None:
         logger.error("Failed to retrieve streams from server %r", plex_server.name)
-        raise Exception("Unable to retrieve streams from server: {name}".format(name=plex_server.name))
+        raise Exception("Unable to retrieve streams from server {name}".format(name=plex_server.name))
     elif not len(streams):
-        logger.info("There were no streams to check for server: %r", plex_server.name)
+        logger.info("There were no streams to check for server %r", plex_server.name)
         return "There were no active streams for server: {name}".format(name=plex_server.name)
 
     # process stream list
@@ -37,9 +37,9 @@ def plex_check_server_max_streams(server=None):
         logger.info("Stream: %s", stream)
         if stream.stream_state == 'paused':
             if plex_server.kill_stream(stream.session_id, 'No paused streams are allowed'):
-                logger.info("Killed stream of user %r because it was paused!", stream.user)
+                logger.info("Killed stream of %r because it was paused!", stream.user)
             else:
-                logger.error("Failed to kill stream for user: %r", stream.user)
+                logger.error("Failed to kill stream for %r", stream.user)
 
     return "{name} has no active stream abusers".format(name=server_object.name)
 
