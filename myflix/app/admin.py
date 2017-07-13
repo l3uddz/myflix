@@ -4,7 +4,7 @@ from django import forms
 from django.contrib import admin
 
 from myflix.app.models import Profile, PlexServer, PlexTier
-from myflix.utils import plex
+from myflix.utils.plex import Plex
 
 logger = logging.getLogger(__name__)
 
@@ -18,11 +18,13 @@ class PlexServerForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(PlexServerForm, self).clean()
         try:
+            name = cleaned_data['name']
             url = cleaned_data['url']
             token = cleaned_data['token']
 
             # validate server url and token
-            if not plex.validate_server_token(url, token):
+            server = Plex(name, url, token)
+            if not server.validate():
                 self.add_error('url', 'Unable to validate the supplied server url')
                 self.add_error('token', 'Unable to validate the supplied server token')
 

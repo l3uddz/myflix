@@ -94,7 +94,7 @@ LOGGING = {
 
         },
         'simple': {
-            'format': '%(levelname)7s - %(module)10s - %(funcName)40s - %(process)7d :: %(message)s'
+            'format': '%(levelname)7s - %(module)10s - %(funcName)40s :: %(message)s'
         },
     },
     'loggers': {

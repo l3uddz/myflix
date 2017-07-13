@@ -6,6 +6,7 @@ import logging
 from celery import shared_task, group
 
 from myflix.app.models import PlexServer
+from myflix.utils.plex import Plex, PlexStream
 
 logger = logging.getLogger(__name__)
 
@@ -19,9 +20,26 @@ def plex_check_server_max_streams(server=None):
         logger.error("The server supplied was not valid, skipping...")
         raise Exception("Invalid server_pk was supplied")
     else:
-        plex_server = PlexServer.objects.get(pk=server)
-    logger.info("Checking max streams for server %r", plex_server.name)
-    return "{name} has no active stream abusers".format(name=plex_server.name)
+        server_object = PlexServer.objects.get(pk=server)
+    logger.info("Checking max streams for server %r", server_object.name)
+
+    # retrieve active stream sessions
+    plex_server = Plex(server_object.name, server_object.url, server_object.token)
+    streams = plex_server.get_stream_sessions()
+    if not streams or 'MediaContainer' not in streams:
+        logger.error("Failed to retrieve streams from server %r", plex_server.name)
+        raise Exception("Unable to retrieve streams from server: {name}".format(name=plex_server.name))
+    elif 'Video' not in streams['MediaContainer']:
+        logger.info("There were no streams to check for server: {name}".format(name=plex_server.name))
+        logger.debug(streams)
+        return "There were no active streams for server: {name}".format(name=plex_server.name)
+
+    # process stream list
+    for stream in streams['MediaContainer']['Video']:
+        stream_info = PlexStream(stream)
+        logger.debug("Stream: %s", stream_info)
+
+    return "{name} has no active stream abusers".format(name=server_object.name)
 
 
 ############################################################
