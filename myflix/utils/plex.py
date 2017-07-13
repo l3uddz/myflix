@@ -108,17 +108,23 @@ class PlexStream:
         self.user = stream['User']['title']
         self.player = stream['Player']['title']
         self.session_id = stream['Session']['id']
-        self.media_title = self.get_stream_filename(stream)
-        self.stream_state = stream['Player']['state']
-        self.stream_type = stream['Media']['Part']['decision']
+        self.state = stream['Player']['state']
+        self.type = stream['Media']['Part']['decision']
+        if 'title' not in stream or 'type' not in stream:
+            self.title = 'Unknown'
+        else:
+            if stream['type'] == 'episode':
+                self.title = "{} {}x{}".format(stream['grandparentTitle'], stream['parentIndex'], stream['index'])
+            else:
+                self.title = stream['title']
 
     def __str__(self):
         return "{user} is playing {media} using {player}. " \
                "Stream state: {state}, type: {type}. Session key: {session}".format(user=self.user,
-                                                                                    media=self.media_title,
+                                                                                    media=self.title,
                                                                                     player=self.player,
-                                                                                    state=self.stream_state,
-                                                                                    type=self.stream_type,
+                                                                                    state=self.state,
+                                                                                    type=self.type,
                                                                                     session=self.session_id)
 
     def __getattr__(self, item):
@@ -130,15 +136,3 @@ class PlexStream:
 
         # Default behaviour
         return 'Unknown'
-
-    @staticmethod
-    def get_stream_filename(stream):
-        filename = "Unknown"
-        if stream['title'] is None:
-            return filename
-
-        if stream['type'] == 'episode':
-            filename = "{} {}x{}".format(stream['grandparentTitle'], stream['parentIndex'], stream['index'])
-        else:
-            filename = stream['title']
-        return filename

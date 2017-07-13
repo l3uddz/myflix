@@ -35,7 +35,7 @@ def plex_check_server_max_streams(server=None):
     # process stream list
     for stream in streams:
         logger.info("Stream: %s", stream)
-        if stream.stream_state == 'paused':
+        if stream.state == 'paused':
             if plex_server.kill_stream(stream.session_id, 'No paused streams are allowed'):
                 logger.info("Killed stream of %r because it was paused!", stream.user)
             else:
