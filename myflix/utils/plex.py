@@ -14,7 +14,6 @@ class Plex:
         self.url = url
         self.token = token
 
-    # core server funcs
     def validate(self):
         logger.info("Validating url %r, token %r", self.url, self.token)
         try:
@@ -44,8 +43,8 @@ class Plex:
             logger.exception("Exception validating server token %r", self.token)
             return False
 
-    def get_stream_sessions(self):
-        request_url = "{url}/status/sessions".format(url=self.url)
+    def get_streams(self):
+        request_url = urljoin(self.url, 'status/sessions')
         headers = {
             'X-Plex-Token': self.token,
             'Accept': 'application/json',
@@ -68,10 +67,30 @@ class Plex:
                     self.token, request_url, r.status_code, r.content)
                 return None
         except:
-            logger.exception("Exception while retrieving stream sessions from %r, token %r", request_url, self.token)
+            logger.exception("Exception while retrieving streams from %r, token %r: ", request_url, self.token)
             return None
 
+    def kill_stream(self, session_id, reason):
+        request_url = urljoin(self.url, 'status/sessions/terminate')
+        headers = {
+            'X-Plex-Token': self.token
+        }
+        payload = {
+            'sessionId': session_id,
+            'reason': reason
+        }
+        try:
+            r = requests.get(request_url, headers=headers, params=payload, verify=False)
+            if r.status_code == 200:
+                return True
+            else:
+                return False
+        except:
+            logger.exception("Exception while killing stream %r: ", session_id)
+            return False
 
+
+# helper classes (parsing responses etc...)
 class PlexStream:
     def __init__(self, stream):
         self.user = stream['User']['title']
