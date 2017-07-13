@@ -1,14 +1,13 @@
 # Create your tasks here
 from __future__ import absolute_import, unicode_literals
 
-import logging
-
 from celery import shared_task, group
+from celery.utils.log import get_task_logger
 
 from myflix.app.models import PlexServer
-from myflix.utils.plex import Plex, PlexStream
+from myflix.utils.plex import Plex
 
-logger = logging.getLogger(__name__)
+logger = get_task_logger(__name__)
 
 
 ############################################################
@@ -26,23 +25,21 @@ def plex_check_server_max_streams(server=None):
     # retrieve active stream sessions
     plex_server = Plex(server_object.name, server_object.url, server_object.token)
     streams = plex_server.get_streams()
-    if not streams or 'MediaContainer' not in streams:
+    if not streams:
         logger.error("Failed to retrieve streams from server %r", plex_server.name)
         raise Exception("Unable to retrieve streams from server: {name}".format(name=plex_server.name))
-    elif 'Video' not in streams['MediaContainer']:
-        logger.info("There were no streams to check for server: {name}".format(name=plex_server.name))
-        logger.debug(streams)
+    elif not len(streams):
+        logger.info("There were no streams to check for server: %r", plex_server.name)
         return "There were no active streams for server: {name}".format(name=plex_server.name)
 
     # process stream list
-    for stream in streams['MediaContainer']['Video']:
-        stream_info = PlexStream(stream)
-        logger.debug("Stream: %s", stream_info)
-        if stream_info.stream_state == 'paused':
-            if plex_server.kill_stream(stream_info.session_id, 'No paused streams are allowed'):
-                logger.debug("Killed stream because it was paused!")
+    for stream in streams:
+        logger.info("Stream: %s", stream)
+        if stream.stream_state == 'paused':
+            if plex_server.kill_stream(stream.session_id, 'No paused streams are allowed'):
+                logger.info("Killed stream of user %r because it was paused!", stream.user)
             else:
-                logger.debug("Problem killing stream....")
+                logger.error("Failed to kill stream for user: %r", stream.user)
 
     return "{name} has no active stream abusers".format(name=server_object.name)
 

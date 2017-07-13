@@ -104,7 +104,13 @@ LOGGING = {
         },
         'myflix': {
             'handlers': ['console'],
-            'level': 'DEBUG'
+            'level': 'DEBUG',
+            'propogate': False
+        },
+        'celery': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True
         }
     },
 }

@@ -60,7 +60,19 @@ class Plex:
         try:
             r = requests.get(request_url, headers=headers, verify=False)
             if r.status_code == 200 and r.headers['Content-Type'] == 'application/json':
-                return r.json()
+                result = r.json()
+                if 'MediaContainer' not in result:
+                    logger.error("Failed to retrieve streams from server %r", self.name)
+                    return None
+                elif 'Video' not in result['MediaContainer']:
+                    logger.info("There were no streams to check for server: %r", self.name)
+                    return []
+
+                streams = []
+                for stream in result['MediaContainer']['Video']:
+                    streams.append(PlexStream(stream))
+                return streams
+
             else:
                 logger.error(
                     "Server url or token was invalid, token=%r, request_url=%r. response_code = %r - content: %r",
