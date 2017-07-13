@@ -85,7 +85,15 @@ class Plex:
     def kill_stream(self, session_id, reason):
         request_url = urljoin(self.url, 'status/sessions/terminate')
         headers = {
-            'X-Plex-Token': self.token
+            'X-Plex-Token': self.token,
+            'Accept': 'application/json',
+            'X-Plex-Provides': 'controller',
+            'X-Plex-Platform': platform.uname()[0],
+            'X-Plex-Platform-Version': platform.uname()[2],
+            'X-Plex-Product': 'myflix',
+            'X-Plex-Version': '0.9.5',
+            'X-Plex-Device': platform.platform(),
+            'X-Plex-Client-Identifier': str(hex(getnode()))
         }
         payload = {
             'sessionId': session_id,
