@@ -5,5 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <p>Tiers page</p>
+    {% for tier in tiers %}
+        <div class="col-sm-3 col-md-3">
+            <div class="well">
+                <h2 class="text-info">{{ tier.name }}</h2>
+                <ul>
+                    <li>{{ tier.max_streams }} concurrent streams</li>
+                    {% if tier.allowed_sync %}
+                        <li>Offline sync is allowed</li>
+                    {% endif %}
+                </ul>
+                <p>{{ tier.description }}</p>
+                <hr>
+                <h3>{{ tier.price }} / month</h3>
+                <hr>
+                <p><a class="btn btn-default btn-lg" href="#"><i class="icon-ok"></i> Select plan</a></p>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}

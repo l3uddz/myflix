@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from myflix.app.models import PlexTier
+
 
 # Create your views here.
 def index(request):
@@ -7,7 +9,8 @@ def index(request):
 
 
 def tiers(request):
-    return render(request, 'core/tiers.html')
+    plex_tiers = PlexTier.objects.all()
+    return render(request, 'core/tiers.html', {'tiers': plex_tiers})
 
 
 def servers(request):

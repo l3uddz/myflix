@@ -2,6 +2,8 @@ import logging
 
 from django import forms
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 
 from myflix.app.models import Profile, PlexServer, PlexTier
 from myflix.utils.plex import Plex
@@ -36,7 +38,22 @@ class PlexServerForm(forms.ModelForm):
 
 
 # Inline models
-class ProfileInline(admin.TabularInline):
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+
+
+class CustomUserAdmin(UserAdmin):
+    inlines = [ProfileInline]
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super(CustomUserAdmin, self).get_inline_instances(request, obj)
+
+
+class TabuluarProfileInline(admin.TabularInline):
     model = Profile
     readonly_fields = ['user']
     can_delete = False
@@ -44,18 +61,19 @@ class ProfileInline(admin.TabularInline):
 
 class PlexServerAdmin(admin.ModelAdmin):
     inlines = [
-        ProfileInline
+        TabuluarProfileInline
     ]
     form = PlexServerForm
 
 
 class PlexTierAdmin(admin.ModelAdmin):
     inlines = [
-        ProfileInline
+        TabuluarProfileInline
     ]
 
 
 # Register your models here.
-admin.site.register(Profile)
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
 admin.site.register(PlexServer, PlexServerAdmin)
 admin.site.register(PlexTier, PlexTierAdmin)

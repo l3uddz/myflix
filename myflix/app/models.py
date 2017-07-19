@@ -16,14 +16,15 @@ class PlexTier(models.Model):
     allowed_sync = models.BooleanField(default=False, verbose_name="Is sync allowed")
     price = MoneyField(max_digits=10, decimal_places=2, default=10, default_currency='USD',
                        verbose_name="How much is this tier")
+    description = models.TextField(verbose_name="Description")
 
     def __str__(self):
         return self.name
 
 
 class PlexServer(models.Model):
-    name = models.CharField(max_length=30, verbose_name="Plex Server Name")
-    url = models.URLField(verbose_name="Full Server URL")
+    name = models.CharField(max_length=30, verbose_name="Server Name")
+    url = models.URLField(verbose_name="Server URL")
     token = models.CharField(max_length=30, verbose_name="Plex Token with administrator rights")
     max_subscribers = models.IntegerField(default=10, verbose_name="Maximum subscribers for this server")
     tiers = models.ManyToManyField(PlexTier, verbose_name="Tiers this server allows")
