@@ -21,18 +21,32 @@
 </head>
 
 <body>
+
 <div id="navbar">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-static-top">
         <div class="container-fluid">
-            <div class="navbar-header"><a href="{% url 'index' %}" class="navbar-brand navbar-link">MyFlix</a>
-                <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggle collapsed"><span
-                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
-                        class="icon-bar"></span><span class="icon-bar"></span></button>
+            <div class="navbar-header">
+
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    MyFlix
+                </a>
             </div>
-            <div class="collapse navbar-collapse" id="navcol-1">
+
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
                     <li role="presentation" {% if request.path|startswith:'/tiers/' %}class="active"{% endif %}>
-                        <a href="#">Tiers</a>
+                        <a href="{% url 'tiers' %}">Tiers</a>
                     </li>
                     <li role="presentation" {% if request.path|startswith:'/servers/' %}class="active"{% endif %}>
                         <a href="#">Servers</a>
@@ -40,16 +54,34 @@
                     <li role="presentation" {% if request.path|startswith:'/help/' %}class="active"{% endif %}>
                         <a href="#">Help</a>
                     </li>
-                    <li role="presentation" {% if request.path|startswith:'/account/' %}class="active"{% endif %}>
-                        <a href="#">Account</a>
-                    </li>
+                </ul>
+
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                My Account <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Profile</a></li>
+                                <li class="nav-divider">
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <!-- Authentication Links -->
+                        <li><a href="#">Login</a></li>
+                        <li><a href="#">Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </nav>
 </div>
 
-<div id="app">
+<div id="app" class="container-fluid">
     {% block content %}
     {% endblock %}
 </div>
