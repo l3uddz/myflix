@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="system-status">
+        <h1 class="text-center">System Status</h1>
+        <p class="text-center">as of <strong>9:56 PM MST</strong></p>
+        <div class="system-status">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Overview </h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Application</td>
+                                <td><i class="glyphicon glyphicon-zoom-in"></i>Investigating...</td>
+                            </tr>
+                            <tr>
+                                <td>Web Cluster A</td>
+                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                            </tr>
+                            <tr>
+                                <td>Web Cluster B</td>
+                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                            </tr>
+                            <tr>
+                                <td>Datacenter (East)</td>
+                                <td><i class="glyphicon glyphicon-repeat"></i>Recovering...</td>
+                            </tr>
+                            <tr>
+                                <td>Datacenter (West)</td>
+                                <td><i class="glyphicon glyphicon-remove"></i>Offline</td>
+                            </tr>
+                            <tr>
+                                <td>Network</td>
+                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                            </tr>
+                            <tr>
+                                <td>Notification System</td>
+                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                            </tr>
+                            <tr>
+                                <td>Monitoring System</td>
+                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2>Latest Updates
+                        <small>(3)</small>
+                    </h2>
+                    <div class="well">
+                        <h3><i class="glyphicon glyphicon-zoom-in"></i>Application </h3>
+                        <p>We have received reports of degraded performance in one or more areas of the application and
+                            are working quickly to resolve the issue. Thank you for your patience.  </p>
+                        <div class="latest-update-timestamp">
+                            <span><strong>February 3, 2017 @ 9:35 PM MST</strong></span></div>
+                    </div>
+                    <div class="well sr-only">
+                        <h3><i class="glyphicon glyphicon-ok"></i>Web Server</h3>
+                        <div class="latest-update-timestamp">
+                            <span><strong>February 3, 2017 @ 9:35 PM MST</strong></span></div>
+                    </div>
+                    <div class="well">
+                        <h3><i class="glyphicon glyphicon-repeat"></i>Datacenter (East)</h3>
+                        <p>Issues previously reported have been resolved. Datacenter should be available shortly.</p>
+                        <div class="latest-update-timestamp">
+                            <span><strong>February 3, 2017 @ 9:45 PM MST</strong></span></div>
+                    </div>
+                    <div class="well">
+                        <h3><i class="glyphicon glyphicon-remove"></i>Datacenter (West)</h3>
+                        <p>System unavailable. Technicians have been notified and are working quickly to resolve the
+                            issue. Thank you for your patience.</p>
+                        <div class="latest-update-timestamp">
+                            <span><strong>February 3, 2017 @ 9:49 PM MST</strong></span></div>
+                    </div>
+                    <div class="well sr-only">
+                        <h3><i class="glyphicon glyphicon-ok"></i>Network</h3>
+                        <div class="latest-update-timestamp">
+                            <span><strong>February 3, 2017 @ 9:35 PM MST</strong></span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

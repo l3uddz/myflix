@@ -24,7 +24,7 @@
 
 <div id="navbar">
     <nav class="navbar navbar-default navbar-static-top">
-        <div class="container-fluid">
+        <div class="container">
             <div class="navbar-header">
 
                 <!-- Collapsed Hamburger -->
@@ -45,14 +45,14 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
+                    <li role="presentation" {% if request.path|startswith:'/servers/' %}class="active"{% endif %}>
+                        <a href="{% url 'servers' %}">Servers</a>
+                    </li>
                     <li role="presentation" {% if request.path|startswith:'/tiers/' %}class="active"{% endif %}>
                         <a href="{% url 'tiers' %}">Tiers</a>
                     </li>
-                    <li role="presentation" {% if request.path|startswith:'/servers/' %}class="active"{% endif %}>
-                        <a href="#">Servers</a>
-                    </li>
                     <li role="presentation" {% if request.path|startswith:'/help/' %}class="active"{% endif %}>
-                        <a href="#">Help</a>
+                        <a href="{% url 'help' %}">Help</a>
                     </li>
                 </ul>
 
@@ -81,7 +81,7 @@
     </nav>
 </div>
 
-<div id="app" class="container-fluid">
+<div id="app" class="container">
     {% block content %}
     {% endblock %}
 </div>

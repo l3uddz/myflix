@@ -22,6 +22,8 @@ urlpatterns = [
     # myflix
     url(r'^$', core_views.index, name='index'),
     url(r'^tiers/$', core_views.tiers, name='tiers'),
+    url(r'^servers/$', core_views.servers, name='servers'),
+    url(r'^help/$', core_views.help, name='help'),
     # admin
     url(r'^admin/', admin.site.urls),
 ]

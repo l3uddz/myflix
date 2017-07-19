@@ -8,3 +8,11 @@ def index(request):
 
 def tiers(request):
     return render(request, 'core/tiers.html')
+
+
+def servers(request):
+    return render(request, 'core/servers.html')
+
+
+def help(request):
+    return render(request, 'core/help.html')
