@@ -16,6 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from myflix.app import views as core_views
+
 urlpatterns = [
+    # myflix
+    url(r'^$', core_views.index, name='index'),
+
+    # admin
     url(r'^admin/', admin.site.urls),
 ]

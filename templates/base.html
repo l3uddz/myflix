@@ -1,0 +1,50 @@
+{% load static %}
+{% load bootstrap3 %}
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>myflix</title>
+    <!-- Styles -->
+    {% bootstrap_css %}
+    <style>
+        {% block styles %}
+        {% endblock %}
+    </style>
+    <!-- Scripts -->
+    <script>
+        {% block scripts %}
+        {% endblock %}
+    </script>
+</head>
+
+<body>
+<div id="navbar">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header"><a href="#" class="navbar-brand navbar-link">MyFlix</a>
+                <button data-toggle="collapse" data-target="#navcol-1" class="navbar-toggle collapsed"><span
+                        class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                        class="icon-bar"></span><span class="icon-bar"></span></button>
+            </div>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li role="presentation" class="active"><a href="#">Tiers</a></li>
+                    <li role="presentation"><a href="#">Help</a></li>
+                    <li role="presentation"><a href="#">Account</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div id="app">
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% bootstrap_javascript jquery=True %}
+</body>
+
+</html>
