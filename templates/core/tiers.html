@@ -9,16 +9,29 @@
         <div class="col-sm-3 col-md-3">
             <div class="well">
                 <h2 class="text-info">{{ tier.name }}</h2>
-                <h5>Package limits:</h5>
+                <h4>Limits:</h4>
                 <ul>
                     <li>{{ tier.max_streams }} concurrent streams</li>
                     {% if not tier.allowed_sync %}
-                        <li>Offline sync is NOT allowed</li>
+                        <li>NO offline sync</li>
+                    {% endif %}
+                    {% if not tier.allowed_paused %}
+                        <li>NO stream pauses</li>
+                    {% endif %}
+                    {% if not tier.allowed_transcodes %}
+                        <li>NO transcodes</li>
                     {% endif %}
                 </ul>
-                {% if tier.allowed_sync %}
-                    <p>Offline sync is allowed</p>
+                {% if tier.allowed_transcodes %}
+                    <p>Transcodes are allowed</p>
                 {% endif %}
+                {% if tier.allowed_paused %}
+                    <p>Stream pauses are allowed</p>
+                {% endif %}
+                {% if tier.allowed_sync %}
+                    <p>Offline syncs are allowed</p>
+                {% endif %}
+                <h4>Description:</h4>
                 <p>{{ tier.description }}</p>
                 <hr>
                 <h3>{{ tier.price }} / month</h3>

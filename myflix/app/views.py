@@ -54,7 +54,7 @@ def profile(request):
             form.save()
     else:
         form = ProfileForm(instance=request.user.profile)
-    return render(request, 'account/profile.html', {'form': form})
+    return render(request, 'account/profile.html', {'form': form, 'profile': request.user.profile})
 
 
 # Forms

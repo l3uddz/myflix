@@ -10,7 +10,7 @@
         <div class="col-sm-3 col-md-3">
             <div class="well">
                 <h2 class="text-info">{{ server.name }}</h2>
-                <h5>Allowed tiers:</h5>
+                <h4>Tiers:</h4>
                 <ul>
                     {% for tier in server.tiers.all %}
                         <li>{{ tier.name }} - {{ tier|available_tier_slots:server }} available</li>

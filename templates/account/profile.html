@@ -1,19 +1,38 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load humanize %}
 
 {% block content %}
     {% bootstrap_messages %}
     <div class="col-md-8 col-md-offset-2">
         <h2>Profile</h2><br>
-        <form method="post">
-            {% csrf_token %}
-            {% bootstrap_form form %}
-
-            {% buttons %}
-                <button type="submit" class="btn btn-primary pull-right">
-                    Save
-                </button>
-            {% endbuttons %}
-        </form>
+        <ul class="list-group">
+            <li class="list-group-item text-right"><span class="pull-left">
+                <strong class="">Server subscribed too</strong></span>
+                {% if profile.server.name|length > 3 %}
+                    {{ profile.server.name }}
+                {% else %}
+                    None
+                {% endif %}
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left">
+                <strong class="">Tier subscribed too</strong></span>
+                {% if profile.tier.name|length > 3 %}
+                    {{ profile.tier.name }}
+                {% else %}
+                    None
+                {% endif %}
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span>
+                {{ profile.last_seen|naturaltime }} - {{ profile.last_seen }}
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Plex name</strong></span>
+                {% if profile.plex_name|length > 1 %}
+                    {{ profile.plex_name }}
+                {% else %}
+                    None
+                {% endif %}
+            </li>
+        </ul>
     </div>
 {% endblock %}
