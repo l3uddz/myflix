@@ -45,11 +45,11 @@
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li role="presentation" {% if request.path|startswith:'/servers/' %}class="active"{% endif %}>
-                        <a href="{% url 'servers' %}">Servers</a>
-                    </li>
                     <li role="presentation" {% if request.path|startswith:'/tiers/' %}class="active"{% endif %}>
                         <a href="{% url 'tiers' %}">Tiers</a>
+                    </li>
+                    <li role="presentation" {% if request.path|startswith:'/servers/' %}class="active"{% endif %}>
+                        <a href="{% url 'servers' %}">Servers</a>
                     </li>
                     <li role="presentation" {% if request.path|startswith:'/help/' %}class="active"{% endif %}>
                         <a href="{% url 'help' %}">Help</a>

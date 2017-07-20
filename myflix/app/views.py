@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from myflix.app.models import PlexTier, PlexServer
+from myflix.app.models import PlexTier, PlexServer, News
 
 
 # Create your views here.
@@ -19,4 +19,5 @@ def servers(request):
 
 
 def help(request):
-    return render(request, 'core/help.html')
+    news_articles = News.objects.all().order_by('-id')[:5]
+    return render(request, 'core/help.html', {'news': news_articles})

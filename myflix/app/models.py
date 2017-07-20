@@ -21,6 +21,9 @@ class PlexTier(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Plex Tier'
+
 
 class PlexServer(models.Model):
     name = models.CharField(max_length=30, verbose_name="Server Name")
@@ -31,6 +34,12 @@ class PlexServer(models.Model):
 
     def __str__(self):
         return self.name
+
+    def available_slots(self):
+        return self.max_subscribers - Profile.objects.filter(server=self.pk).count()
+
+    class Meta:
+        verbose_name_plural = 'Plex Server'
 
 
 # user models
@@ -44,6 +53,22 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
 
+
+# app models
+class News(models.Model):
+    user = models.ManyToManyField(User, verbose_name="Poster of news article")
+    title = models.CharField(max_length=256, verbose_name="Article title")
+    content = models.TextField(verbose_name="Article content")
+    pub_date = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'News'
+
+
+# receivers
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

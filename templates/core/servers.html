@@ -17,6 +17,14 @@
                 </ul>
                 <hr>
                 <h4>{{ server.max_subscribers }} max subscribers</h4>
+                <hr>
+                {% if server.available_slots %}
+                    <h4>{{ server.available_slots }} available slots</h4>
+                    <hr>
+                    <p><a class="btn btn-default btn-lg" href="#"><i class="icon-ok"></i> Select server</a></p>
+                {% else %}
+                    <h4>There are NO available slots!</h4>
+                {% endif %}
             </div>
         </div>
     {% endfor %}

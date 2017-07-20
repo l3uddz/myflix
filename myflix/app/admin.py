@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 
-from myflix.app.models import Profile, PlexServer, PlexTier
+from myflix.app.models import Profile, PlexServer, PlexTier, News
 from myflix.utils.plex import Plex
 
 logger = logging.getLogger(__name__)
@@ -77,3 +77,4 @@ admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(PlexServer, PlexServerAdmin)
 admin.site.register(PlexTier, PlexTierAdmin)
+admin.site.register(News)
