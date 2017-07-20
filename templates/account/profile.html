@@ -23,7 +23,12 @@
                     None
                 {% endif %}
             </li>
-            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span>
+            <li class="list-group-item text-right"><span class="pull-left"><strong
+                    class="">Subscription expires</strong></span>
+                {{ profile.subscription_expires|naturaltime }} - {{ profile.subscription_expires }}
+            </li>
+            <li class="list-group-item text-right"><span class="pull-left"><strong
+                    class="">Last stream</strong></span>
                 {{ profile.last_seen|naturaltime }} - {{ profile.last_seen }}
             </li>
             <li class="list-group-item text-right"><span class="pull-left"><strong class="">Plex name</strong></span>

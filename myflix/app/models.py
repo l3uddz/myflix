@@ -56,9 +56,9 @@ class Profile(models.Model):
                                verbose_name="Server subscribed too")
     tier = models.ForeignKey(PlexTier, null=True, blank=True, on_delete=models.SET_NULL,
                              verbose_name="Tier subscribed too")
-    join_date = models.DateTimeField(auto_now_add=True, blank=True)
-    last_seen = models.DateTimeField(auto_now_add=True, blank=True)
-    subscription_expires = models.DateTimeField(auto_now_add=True, blank=True)
+    join_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name="Join date")
+    last_seen = models.DateTimeField(blank=True, null=True, verbose_name="Last plex stream")
+    subscription_expires = models.DateTimeField(null=True, blank=True, verbose_name="Subscription expires date")
     plex_name = models.CharField(max_length=64, blank=True, verbose_name="Plex username")
 
     def __str__(self):
