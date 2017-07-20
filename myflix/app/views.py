@@ -20,4 +20,5 @@ def servers(request):
 
 def help(request):
     news_articles = News.objects.all().order_by('-id')[:5]
-    return render(request, 'core/help.html', {'news': news_articles})
+    plex_servers = PlexServer.objects.all()
+    return render(request, 'core/help.html', {'news': news_articles, 'servers': plex_servers})

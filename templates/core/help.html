@@ -15,13 +15,15 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tbody>
+                            {% for server in servers %}
+                                <tr>
+                                    <td>{{ server.name }}</td>
+                                    <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                                </tr>
+                            {% endfor %}
                             <tr>
-                                <td>Web Cluster A</td>
-                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
-                            </tr>
-                            <tr>
-                                <td>Web Cluster B</td>
-                                <td><i class="glyphicon glyphicon-ok"></i>Online</td>
+                                <td>Datacenter (West)</td>
+                                <td><i class="glyphicon glyphicon-remove"></i>Offline</td>
                             </tr>
                             <tr>
                                 <td>Network</td>
