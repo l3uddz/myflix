@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 from myflix.app import views as core_views
 
@@ -24,6 +26,12 @@ urlpatterns = [
     url(r'^tiers/$', core_views.tiers, name='tiers'),
     url(r'^servers/$', core_views.servers, name='servers'),
     url(r'^help/$', core_views.help, name='help'),
+    # account
+    url(r'^account/login/$', auth_views.login, name='login', kwargs={'redirect_authenticated_user': True,
+                                                                     'template_name': 'account/login.html'}),
+    url(r'^account/logout/$', auth_views.logout, {'next_page': 'index'}, name='logout'),
+    url(r'^account/register/$', core_views.register, name='register'),
+    url(r'^account/profile/$', login_required(core_views.profile), name='profile'),
     # admin
     url(r'^admin/', admin.site.urls),
 ]

@@ -168,6 +168,10 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+# Auth
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'profile'
+
 # djmoney
 CURRENCIES = ('USD', 'EUR', 'GBP')
 

@@ -36,7 +36,12 @@ class PlexServer(models.Model):
         return self.name
 
     def available_slots(self):
-        return self.max_subscribers - Profile.objects.filter(server=self.pk).count()
+        users = Profile.objects.filter(server=self.pk)
+        current_subscribers = 0
+        for user in users:
+            current_subscribers += user.tier.max_streams
+        available = self.max_subscribers - current_subscribers
+        return available if available else 0
 
     class Meta:
         verbose_name_plural = 'Plex Server'
