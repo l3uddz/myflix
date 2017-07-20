@@ -5,5 +5,19 @@
 {% endblock %}
 
 {% block content %}
-    <p>Servers page</p>
+    {% for server in servers %}
+        <div class="col-sm-3 col-md-3">
+            <div class="well">
+                <h2 class="text-info">{{ server.name }}</h2>
+                <h5>Allowed tiers:</h5>
+                <ul>
+                    {% for tier in server.tiers.all %}
+                        <li>{{ tier.name }}</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <h4>{{ server.max_subscribers }} max subscribers</h4>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
