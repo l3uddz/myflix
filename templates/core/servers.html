@@ -13,7 +13,7 @@
                 <h5>Allowed tiers:</h5>
                 <ul>
                     {% for tier in server.tiers.all %}
-                        <li>{{ tier.name }} - Available: {{ tier|available_tier_slots:server }}</li>
+                        <li>{{ tier.name }} - {{ tier|available_tier_slots:server }} available</li>
                     {% endfor %}
                 </ul>
                 <hr>
