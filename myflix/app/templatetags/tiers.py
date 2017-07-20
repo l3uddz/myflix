@@ -6,5 +6,6 @@ register = template.Library()
 # filters
 @register.filter
 def available_tier_slots(tier, server):
-    val = int(server.max_subscribers / tier.max_streams)
+    available = server.available_slots()
+    val = int(available / tier.max_streams)
     return val if val else 0
