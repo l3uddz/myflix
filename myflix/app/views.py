@@ -67,6 +67,11 @@ class UserCreateForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        self.fields['server'].widget.attrs['disabled'] = True
+        self.fields['tier'].widget.attrs['disabled'] = True
+
     class Meta:
         model = Profile
         exclude = ['user']

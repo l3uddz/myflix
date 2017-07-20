@@ -49,11 +49,11 @@ class PlexServer(models.Model):
 
 # user models
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="User this profile is for")
-    server = models.OneToOneField(PlexServer, null=True, blank=True, on_delete=models.SET_NULL,
-                                  verbose_name="Server this user is subscribed too")
-    tier = models.OneToOneField(PlexTier, null=True, blank=True, on_delete=models.SET_NULL,
-                                verbose_name="Tier this user is subscribed too")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="User this profile belongs too")
+    server = models.ForeignKey(PlexServer, null=True, blank=True, on_delete=models.SET_NULL,
+                               verbose_name="Server subscribed too")
+    tier = models.ForeignKey(PlexTier, null=True, blank=True, on_delete=models.SET_NULL,
+                             verbose_name="Tier subscribed too")
 
     def __str__(self):
         return self.user.username
