@@ -22,15 +22,6 @@
                         <li>NO transcodes</li>
                     {% endif %}
                 </ul>
-                {% if tier.allowed_transcodes %}
-                    <p>Transcodes are allowed</p>
-                {% endif %}
-                {% if tier.allowed_paused %}
-                    <p>Stream pauses are allowed</p>
-                {% endif %}
-                {% if tier.allowed_sync %}
-                    <p>Offline syncs are allowed</p>
-                {% endif %}
                 <h4>Description:</h4>
                 <p>{{ tier.description }}</p>
                 <hr>
