@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load tiers %}
 
 {% block styles %}
 {% endblock %}
@@ -12,7 +13,7 @@
                 <h5>Allowed tiers:</h5>
                 <ul>
                     {% for tier in server.tiers.all %}
-                        <li>{{ tier.name }}</li>
+                        <li>{{ tier.name }} - Available: {{ tier|available_tier_slots:server }}</li>
                     {% endfor %}
                 </ul>
                 <hr>
