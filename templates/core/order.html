@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    <p>Order page for {{ server.name }}</p>
+    <h4>Order tier from {{ server.name }}</h4><br>
     {% for tier in server.tiers.all %}
         {% if tier|available_tier_slots:server %}
             <div class="col-md-3">
