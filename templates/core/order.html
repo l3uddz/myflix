@@ -1,9 +1,37 @@
 {% extends 'base.html' %}
 {% load bootstrap3 %}
+{% load tiers %}
 
 {% block styles %}
 {% endblock %}
 
 {% block content %}
     <p>Order page for {{ server.name }}</p>
+    {% for tier in server.tiers.all %}
+        {% if tier|available_tier_slots:server %}
+            <div class="col-md-3">
+                <div class="well">
+                    <h2 class="text-info">{{ tier.name }}</h2>
+                    <h4>Limits:</h4>
+                    <ul>
+                        <li>{{ tier.max_streams }} concurrent streams</li>
+                        {% if not tier.allowed_sync %}
+                            <li>NO offline sync</li>
+                        {% endif %}
+                        {% if not tier.allowed_paused %}
+                            <li>NO stream pauses</li>
+                        {% endif %}
+                        {% if not tier.allowed_transcodes %}
+                            <li>NO transcodes</li>
+                        {% endif %}
+                    </ul>
+                    <h4>Description:</h4>
+                    <p>{{ tier.description }}</p>
+                    <hr>
+                    <h3>{{ tier.price }} / month</h3>
+                    <a href="#" class="btn btn-info btn-block">Choose subscription</a>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}

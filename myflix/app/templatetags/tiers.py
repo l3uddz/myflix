@@ -8,4 +8,4 @@ register = template.Library()
 def available_tier_slots(tier, server):
     available = server.available_slots()
     val = int(available / tier.max_streams)
-    return val if val else 0
+    return val if val > 0 else 0
