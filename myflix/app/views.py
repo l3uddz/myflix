@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 
 from myflix.app.models import PlexTier, PlexServer, News, Profile
@@ -55,6 +56,12 @@ def profile(request):
     else:
         form = ProfileForm(instance=request.user.profile)
     return render(request, 'account/profile.html', {'form': form, 'profile': request.user.profile})
+
+
+@login_required
+def order(request, server_id):
+    server = get_object_or_404(PlexServer, pk=server_id)
+    return render(request, 'core/order.html', {'server': server})
 
 
 # Forms

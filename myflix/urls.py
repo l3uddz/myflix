@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^tiers/$', core_views.tiers, name='tiers'),
     url(r'^servers/$', core_views.servers, name='servers'),
     url(r'^help/$', core_views.help, name='help'),
+    url(r'^order/(?P<server_id>\d+)/$', login_required(core_views.order), name='order'),
     # account
     url(r'^account/login/$', auth_views.login, name='login', kwargs={'redirect_authenticated_user': True,
                                                                      'template_name': 'account/login.html'}),
