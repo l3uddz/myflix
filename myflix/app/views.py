@@ -64,6 +64,17 @@ def order(request, server_id):
     return render(request, 'core/order.html', {'server': server})
 
 
+@login_required
+def order_tier(request, server_id, tier_id):
+    server = get_object_or_404(PlexServer, pk=server_id)
+    tier = get_object_or_404(PlexTier, pk=tier_id)
+    if tier not in server.tiers.all():
+        return render(request, 'core/order_tier.html', {'server': None, 'tier': None})
+    if server.available_slots() < tier.max_streams:
+        return render(request, 'core/order_tier.html', {'server': None, 'tier': None})
+    return render(request, 'core/order_tier.html', {'server': server, 'tier': tier})
+
+
 # Forms
 class UserCreateForm(UserCreationForm):
     def __init__(self, *args, **kwargs):

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load tiers %}
+
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+    {% if not tier %}
+        <p>There were not enough available slots to make the purchase on this server.</p>
+    {% else %}
+        <p>Order page for {{ server.name }} - tier: {{ tier.name }}</p>
+    {% endif %}
+{% endblock %}

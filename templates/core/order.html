@@ -29,7 +29,8 @@
                     <p>{{ tier.description }}</p>
                     <hr>
                     <h3>{{ tier.price }} / month</h3>
-                    <a href="#" class="btn btn-info btn-block">Choose subscription</a>
+                    <a href="{% url 'order_tier' server.pk tier.pk %}" class="btn btn-info btn-block">Choose
+                        subscription</a>
                 </div>
             </div>
         {% endif %}
